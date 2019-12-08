@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+COLOR_DISCHARGING="^c#FF0000^"
+COLOR_CHARGING="^c#D68910^"
+COLOR_CHARGED="^c#00FF00^"
+COLOR_RESET="^d^"
+
+function f_battery() {
+	if [ -f /usr/bin/acpi ]; then
+		output=$(acpi -b | sed -e 's/Battery 0: //g')
+		if [[ $output =~ "Discharging" ]]; then
+			echo "$COLOR_DISCHARGING$output$COLOR_RESET"
+		elif [[ $output =~ "Unknown" ]]; then
+			output=$(echo $output | sed -e 's/Unknown, //g')
+			echo "$COLOR_CHARGED AC power, $output$COLOR_RESET"
+		else
+			echo "$COLOR_CHARGED$output$COLOR_RESET"
+		fi
+	else
+		printf "N/A"
+	fi
+}
+
+function f_datetime() {
+	TZ=$(cat /etc/timezone) date +"%a %b %d %R %Z"
+}
+
+function f_freespace() {
+	df -lh --output=avail "$1" | awk -v thefs="$1" 'NR == 2 { print $1 " free on " thefs }'
+}
+
+function f_uptime() {
+	uptime -p
+}
+
+xsetroot -name "$(f_uptime) | $(f_battery) | $(f_freespace /) | $(f_datetime)"
