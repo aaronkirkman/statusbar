@@ -9,12 +9,12 @@ function f_battery() {
 	if [ -f /usr/bin/acpi ]; then
 		output=$(acpi -b | sed -e 's/Battery 0: //g')
 		if [[ $output =~ "Discharging" ]]; then
-			echo "$COLOR_DISCHARGING$output$COLOR_RESET"
+			echo "${COLOR_DISCHARGING}${output}${COLOR_RESET}"
 		elif [[ $output =~ "Unknown" ]]; then
 			output=$(echo $output | sed -e 's/Unknown, //g')
-			echo "$COLOR_CHARGED AC power, $output$COLOR_RESET"
+			echo "${COLOR_CHARGED}AC power, ${output}${COLOR_RESET}"
 		else
-			echo "$COLOR_CHARGED$output$COLOR_RESET"
+			echo "${COLOR_CHARGING}${output}${COLOR_RESET}"
 		fi
 	else
 		printf "N/A"
