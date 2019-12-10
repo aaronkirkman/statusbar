@@ -26,7 +26,7 @@ function f_datetime() {
 }
 
 function f_freespace() {
-	df -lh --output=avail "$1" | awk -v thefs="$1" 'NR == 2 { print $1 " free on " thefs }'
+	df -h --output=avail "$1" | awk -v thefs="$1" 'NR == 2 { print $1 " free on " thefs }'
 }
 
 function f_uptime() {
