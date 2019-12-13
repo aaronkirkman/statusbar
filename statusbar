@@ -1,23 +1,20 @@
 #!/usr/bin/env bash
 
 COLOR_DISCHARGING="^c#FF0000^"
-COLOR_CHARGING="^c#D68910^"
-COLOR_CHARGED="^c#00FF00^"
+COLOR_AC="^c#00FF00^"
 COLOR_RESET="^d^"
 
 function battery() {
 	if [ -f /usr/bin/acpi ]; then
-		output=$(acpi -b | sed -e 's/Battery 0: //g')
-		if [[ $output =~ "Discharging" ]]; then
-			echo "${COLOR_DISCHARGING}${output}${COLOR_RESET}"
-		elif [[ $output =~ "Unknown" ]]; then
-			output=$(echo $output | sed -e 's/Unknown, //g')
-			echo "${COLOR_CHARGED}AC power, ${output}${COLOR_RESET}"
+		ac=$(acpi -a)
+		batt=$(acpi -b | sed -e 's/Battery 0: //g' | sed -e 's/Unknown, //g')
+		if [[ $ac = "Adapter 0: on-line" ]]; then
+			echo "${COLOR_AC}AC power, ${batt}${COLOR_RESET}"
 		else
-			echo "${COLOR_CHARGING}${output}${COLOR_RESET}"
+			echo "${COLOR_DISCHARGING}${batt}${COLOR_RESET}"
 		fi
 	else
-		printf "N/A"
+		echo "N/A"
 	fi
 }
 
@@ -38,7 +35,7 @@ function ssid() {
 	else
 		result="N/A";
 	fi
-	printf "SSID: ${result}"
+	echo "SSID: ${result}"
 }
 
 function system_uptime() {
