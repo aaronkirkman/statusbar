@@ -29,8 +29,20 @@ function f_freespace() {
 	df -h --output=avail "$1" | awk -v thefs="$1" 'NR == 2 { print $1 " free on " thefs }'
 }
 
+function get_ssid() {
+	if [ -f /sbin/iwgetid ]; then
+		result="$(/sbin/iwgetid -r )";
+		if [ -z "$result" ]; then
+				result="N/A";
+		fi
+	else
+		result="N/A";
+	fi
+	printf "SSID: ${result}"
+}
+
 function f_uptime() {
 	uptime -p
 }
 
-xsetroot -name "$(f_uptime) | $(f_battery) | $(f_freespace /) | $(f_datetime)"
+xsetroot -name "$(f_uptime) | $(get_ssid) | $(f_battery) | $(f_freespace /) | $(f_datetime)"
