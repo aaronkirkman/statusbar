@@ -5,7 +5,7 @@ COLOR_CHARGING="^c#D68910^"
 COLOR_CHARGED="^c#00FF00^"
 COLOR_RESET="^d^"
 
-function f_battery() {
+function battery() {
 	if [ -f /usr/bin/acpi ]; then
 		output=$(acpi -b | sed -e 's/Battery 0: //g')
 		if [[ $output =~ "Discharging" ]]; then
@@ -21,15 +21,15 @@ function f_battery() {
 	fi
 }
 
-function f_datetime() {
+function datetime() {
 	TZ=$(cat /etc/timezone) date +"%a %b %d %R %Z"
 }
 
-function f_freespace() {
+function freespace() {
 	df -h --output=avail "$1" | awk -v thefs="$1" 'NR == 2 { print $1 " free on " thefs }'
 }
 
-function get_ssid() {
+function ssid() {
 	if [ -f /sbin/iwgetid ]; then
 		result="$(/sbin/iwgetid -r )";
 		if [ -z "$result" ]; then
@@ -41,8 +41,8 @@ function get_ssid() {
 	printf "SSID: ${result}"
 }
 
-function f_uptime() {
+function system_uptime() {
 	uptime -p
 }
 
-xsetroot -name "$(f_uptime) | $(get_ssid) | $(f_battery) | $(f_freespace /) | $(f_datetime)"
+xsetroot -name "$(system_uptime) | $(ssid) | $(battery) | $(freespace /) | $(datetime)"
