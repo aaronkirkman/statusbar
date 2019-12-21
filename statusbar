@@ -50,4 +50,4 @@ function system_uptime() {
 	uptime -p
 }
 
-xsetroot -name "$(kernel) | $(battery) | $(system_uptime) | $(ssid) | $(freespace /) | $(datetime)"
+xsetroot -name "$(battery) | $(system_uptime) | $(ssid) | $(freespace /) | $(datetime);$(kernel) | $(os_release)"
