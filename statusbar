@@ -30,6 +30,10 @@ function kernel() {
 	uname -r
 }
 
+function os_release() {
+	cat /etc/os-release | grep "PRETTY_NAME" | sed -e 's/PRETTY_NAME=//g; s/"//g'
+}
+
 function ssid() {
 	if [ -f /sbin/iwgetid ]; then
 		result="$(/sbin/iwgetid -r )";
