@@ -26,6 +26,10 @@ function freespace() {
 	df -h --output=avail "$1" | awk -v thefs="$1" 'NR == 2 { print $1 " free on " thefs }'
 }
 
+function identity() {
+	echo "$(whoami)@$(hostname)"
+}
+
 function kernel() {
 	uname -r
 }
@@ -50,4 +54,4 @@ function system_uptime() {
 	uptime -p
 }
 
-xsetroot -name "$(battery) | $(system_uptime) | $(ssid) | $(freespace /) | $(datetime);$(kernel) | $(os_release)"
+xsetroot -name "$(battery) | $(system_uptime) | $(ssid) | $(freespace /) | $(datetime);$(identity) | $(kernel) | $(os_release)"
