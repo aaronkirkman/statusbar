@@ -19,7 +19,11 @@ function battery() {
 }
 
 function datetime() {
-	TZ=$(cat /etc/timezone) date +"%a %b %d %R %Z"
+	if [ "$1" = "" ]; then
+		TZ=$(cat /etc/timezone) date +"%a %b %d %R %Z"
+	else
+		TZ=$1 date +"%a %b %d %R %Z"
+	fi
 }
 
 function freespace() {
@@ -54,4 +58,4 @@ function system_uptime() {
 	uptime -p
 }
 
-xsetroot -name "$(battery) | $(system_uptime) | $(ssid) | $(freespace /) | $(datetime);$(identity) | $(kernel) | $(os_release)"
+xsetroot -name "$(battery) | $(system_uptime) | $(ssid) | $(freespace /) | $(datetime);$(identity) | $(kernel) | $(os_release) | $(datetime_custom Europe/Berlin) | $(datetime_custom Asia/Jerusalem)"
