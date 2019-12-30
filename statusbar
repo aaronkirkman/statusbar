@@ -19,7 +19,7 @@ function battery() {
 }
 
 function cpu_temp() {
-	acpi -t | cut -f 4 -d " "
+	acpi -t | cut -f 4,6 -d " "
 }
 
 function datetime() {
