@@ -58,4 +58,4 @@ function system_uptime() {
 	uptime -p
 }
 
-xsetroot -name "$(battery) | $(system_uptime) | $(ssid) | $(freespace /) | $(datetime);$(identity) | $(kernel) | $(os_release) | $(datetime Europe/Berlin) | $(datetime Asia/Jerusalem) | $(datetime Australia/Sydney)"
+xsetroot -name "$(battery) | $(system_uptime) | $(ssid) | $(freespace /) | $(datetime);$(identity) | $(kernel) | $(os_release) | $(datetime Europe/Berlin)"
