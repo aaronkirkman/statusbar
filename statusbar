@@ -18,6 +18,10 @@ function battery() {
 	fi
 }
 
+function cpu_temp() {
+	acpi -t | cut -f 4 -d " "
+}
+
 function datetime() {
 	if [ "$1" = "" ]; then
 		TZ=$(cat /etc/timezone) date +"%a %b %d %R %Z"
