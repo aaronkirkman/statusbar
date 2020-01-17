@@ -62,6 +62,11 @@ function system_uptime() {
 	uptime -p
 }
 
-top="$(battery) | $(cpu_temp) | $(ssid) | $(freespace /) | $(datetime)"
+function volume() {
+	v=$(amixer sget Master | awk -F"[][]" '/dB/ { print $2 }')
+	echo "Vol: ${v}"
+}
+
+top="$(battery) | $(cpu_temp) | $(ssid) | $(volume) | $(freespace /) | $(datetime)"
 bottom="$(identity) | $(kernel) | $(os_release) | $(system_uptime) | $(datetime Europe/Berlin)"
 xsetroot -name "${top};${bottom}"
