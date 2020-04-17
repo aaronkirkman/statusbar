@@ -68,5 +68,5 @@ function volume() {
 }
 
 top="$(battery) | $(cpu_temp) | $(ssid) | $(volume) | $(freespace /) | $(datetime)"
-bottom="$(identity) | $(kernel) | $(os_release) | $(system_uptime) | $(datetime Europe/Berlin)"
+bottom="$(identity) | $(kernel) | $(os_release) | $(system_uptime) | $(datetime Europe/Berlin) | $(datetime Asia/Calcutta)"
 xsetroot -name "${top};${bottom}"
